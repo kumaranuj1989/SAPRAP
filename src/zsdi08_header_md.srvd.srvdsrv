@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Defination for Header'
+define service ZSDI08_HEADER_MD {
+  expose ZI08C_MD_HEADER as HeaderSD;
+  expose ZI08C_MD_ITEM   as ItemSD;
+  expose ZI08C_MD_SERIAL as SerialSD;
+}

@@ -1,0 +1,6 @@
+@EndUserText.label: 'Test'
+define service ZSDI08_R_MD {
+  expose zi08R_md_header;
+  expose zi08R_md_item;
+  expose zi08R_md_serial;
+}

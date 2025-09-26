@@ -1,0 +1,72 @@
+unmanaged implementation in class zbp_i08r_md_header unique;
+strict ( 2 );
+
+define behavior for zi08R_md_header alias Header
+late numbering
+lock master
+authorization master ( instance )
+etag master Lastchangedat
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) MaterialDocument, DocumentYear;
+  association _item { create; }
+  association _serial { create; }
+
+  mapping for z08md_header corresponding
+    {
+      MaterialDocument           = mblnr;
+      DocumentYear               = mjahr;
+      GoodsMovementCode          = gmcode;
+      MaterialDocumentHeaderText = bktxt;
+      ReceivingPlant             = rplant;
+      ReferenceDocument          = xblnr;
+      Supplier                   = lifnr;
+    }
+}
+
+define behavior for zi08R_md_item alias Item
+late numbering
+lock dependent by _head
+authorization dependent by _head
+etag master Lastchangedat
+{
+  update;
+  delete;
+  field ( readonly ) MaterialDocument, DocumentYear, DocumentItem;
+  association _head;
+  association _serial { create; }
+
+  mapping for z08md_item corresponding
+    {
+      MaterialDocument        = mblnr;
+      DocumentYear            = mjahr;
+      DocumentItem            = zeile;
+      GoodsMovementReasonCode = grund;
+      GoodsMovementRefDocType = gmrdt;
+      GoodsMovementType       = bwart;
+      Material                = matnr;
+      Plant                   = splant;
+      PurchaseOrder           = ebeln;
+      PurchaseOrderItem       = ebelp;
+      IsCompletelyDelivered   = delv_inc;
+      QuantityInEntryUnit     = fkimg;
+      EntryUnit               = meins;
+      StorageLocation         = lgort;
+    }
+}
+
+define behavior for zi08R_md_serial alias Serial
+late numbering
+lock dependent by _head
+authorization dependent by _head
+etag master Lastchangedat
+{
+  update;
+  delete;
+  field ( readonly ) MaterialDocument, DocumentYear, DocumentItem, Serial;
+  association _head;
+
+
+}
